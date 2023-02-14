@@ -1,0 +1,29 @@
+.mat-mdc-card {
+    margin: 20px;
+    height: auto;
+
+    .mat-mdc-card-header {
+        button {
+            margin-left: 20px;
+        }
+    }
+}
+
+.mat-mdc-card-content {
+    form {
+        display: inline-flex;
+
+        .mat-mdc-form-field {
+            width: 300px;
+        }
+    }
+
+    .buttons {
+        display: block;
+        padding-left: 10px;
+
+        .mat-mdc-button-base {
+            margin: 0 8px 8px 0;
+          }
+    }
+}

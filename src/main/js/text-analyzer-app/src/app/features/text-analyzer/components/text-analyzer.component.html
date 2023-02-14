@@ -1,0 +1,49 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            Text Analyzer
+        </mat-card-title>
+        <mat-card-subtitle>
+            Find out how many vowels and consonants your text has!
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="textAnalyzerForm">
+            <mat-form-field>
+              <textarea formControlName="inputText" matInput placeholder="Insert your text"></textarea>
+            </mat-form-field>
+          
+            <div class="buttons">
+                <button [disabled]="textAnalyzerForm.invalid" mat-raised-button color="primary" (click)="checkForVowels()">Vowels</button>
+                <button [disabled]="textAnalyzerForm.invalid" mat-raised-button color="primary" (click)="checkForConsonants()">Consonants</button>
+                <button [disabled]="textAnalyzerForm.invalid" mat-raised-button color="primary" (click)="checkBoth()">Both</button>
+                <mat-slide-toggle formControlName="toggleOnline" #slide>
+                    <span>{{slide.checked ? 'Online':'Offline'}}</span>
+                </mat-slide-toggle>
+            </div>
+        </form>
+
+        <ng-container *ngIf="(analyzedText$ | async) != null">
+            <div *ngFor="let text of analyzedText$ | async | keyvalue ">
+                <p>{{text.key}}</p>
+                <div *ngFor="let value of text.value">
+                    <p>{{value}}</p>
+                </div>
+            </div>
+        </ng-container>
+
+    </mat-card-content>
+</mat-card>
+<mat-card *ngIf="localStorageItems != null">
+        <mat-card-header>
+            Analysis history:
+            <button mat-raised-button color="primary" [disabled]="localStorageItems.size == 0" (click)="clearStorage()">Clear history</button>
+        </mat-card-header>
+        <mat-card-content>
+            <div *ngFor="let text of localStorageItems | keyvalue ">
+                <p>{{text.key}}</p>
+                <p>{{text.value}}</p>
+                <mat-divider></mat-divider>
+            </div>
+        </mat-card-content>
+</mat-card>
